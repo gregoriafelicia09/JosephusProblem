@@ -11,12 +11,23 @@ public class JosephusSim {
       try {
          // load names from the file in order, generating a singly linked list of PersonNodes
          Scanner file = new Scanner(new File(fileName));
+         while(file.hasNextLine()){
+            String name = file.nextLine().trim();
+            if(!name.isEmpty()){
+               add(name);
+            }
+         }
+         track.next = circle;
          
          // make the ring circular by attaching last node's next to front
          
          // remember the last node as the one in front of the next to get eliminated
          
          // generate, print, and save the random elimination count
+         Random rand = new Random();
+         eliminationCount = rand.nextInt(size/2) + 1;
+         System.out.println("=== Elimination count is " + eliminationCount + " ===");
+         
 
       } catch(FileNotFoundException e) {
          System.out.println("Something went wrong with " + fileName);
@@ -55,7 +66,7 @@ public class JosephusSim {
          if (i < 1){
          sb.append(", ");
          }
-         sb.append(i).append(" - ").append(cur.name);
+         sb.append(i).append("-" ).append(cur.name);
          cur = cur.next;
          
       }
