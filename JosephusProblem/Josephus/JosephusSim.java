@@ -38,15 +38,28 @@ public class JosephusSim {
    
    public boolean isOver() {
       // check if there's only one person left in the circle
-      return false;
+      return size == 1;
    }
    
    public String toString() {
       // if there's only one person left, print them as the last survivor
-      
       // print the remaining survivors (watch out for infinite loop since list is circular)
-
-      return "";
+      if(isOver()){
+         return circle.name + " is the last survivor";
+      }
+      
+      StringBuilder sb = new StringBuilder("Remaining survivors: ");
+      PersonNode cur = circle;
+      
+      for(int i = 0; i <= size; i++){
+         if (i < 1){
+         sb.append(", ");
+         }
+         sb.append(i).append(" - ").append(cur.name);
+         cur = cur.next;
+         
+      }
+      return sb.toString();
    }
 
 }
