@@ -13,10 +13,13 @@ public class JosephusSim {
          Scanner file = new Scanner(new File(fileName));
          while(file.hasNextLine()){
             String name = file.nextLine().trim();
-            if(!name.isEmpty()){
                add(name);
-            }
          }
+         PersonNode cur = circle;
+         while(cur.next != null){
+            cur = cur.next;
+         }
+         track = cur;
          track.next = circle;
          
          // make the ring circular by attaching last node's next to front
@@ -36,15 +39,36 @@ public class JosephusSim {
    
    // optional helper method for constructing the circle
    private void add(String val) {
+     if (circle == null){
+         circle = new PersonNode(val);
+         size++;
+         return;
+     }
+     PersonNode cur = circle;
+     
+     while(cur.next != null){
+      cur = cur.next;
+     }
+     cur.next = new PersonNode(val);
+     size++;
    }
    
    public void eliminate() {
       // count to the elimination count
       
+      for(int i = 0; i < eliminationCount - 1; i++){
+         track = track.next;
+      }
       // print who will be eliminated
-      
+      PersonNode toEliminate = track.next;
+      System.out.println(toEliminate.name + " is eliminated");
+       
       // eliminate the person and update "front" of the circle and size
-
+      if (toEliminate == circle){
+         circle = circle.next;
+      }
+      track.next = toEliminate.next;
+      size--;
    }
    
    public boolean isOver() {
