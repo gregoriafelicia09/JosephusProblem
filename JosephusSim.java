@@ -15,6 +15,11 @@ public class JosephusSim {
             String name = file.nextLine().trim();
                add(name);
          }
+         PersonNode cur = circle;
+         while(cur.next != null){
+            cur = cur.next;
+         }
+         track = cur;
          track.next = circle;
          
          // make the ring circular by attaching last node's next to front
@@ -36,6 +41,7 @@ public class JosephusSim {
    private void add(String val) {
      if (circle == null){
          circle = new PersonNode(val);
+         size++;
          return;
      }
      PersonNode cur = circle;
@@ -44,15 +50,25 @@ public class JosephusSim {
       cur = cur.next;
      }
      cur.next = new PersonNode(val);
+     size++;
    }
    
    public void eliminate() {
       // count to the elimination count
       
+      for(int i = 0; i < eliminationCount - 1; i++){
+         track = track.next;
+      }
       // print who will be eliminated
-      
+      PersonNode toEliminate = track.next;
+      System.out.println(toEliminate.name + " is eliminated");
+       
       // eliminate the person and update "front" of the circle and size
-
+      if (toEliminate == circle){
+         circle = circle.next;
+      }
+      track.next = toEliminate.next;
+      size--;
    }
    
    public boolean isOver() {
@@ -82,3 +98,61 @@ public class JosephusSim {
    }
 
 }
+
+
+/*
+# PROGRAM OUTPUT
+
+t   ----jGRASP exec: java JosephusDriver
+ === Elimination count is 5 ===
+ Remaining survivors: , 0-Muhammad1-Beza2-Ibrar3-Nur4-Krystal5-River6-Soham7-Leon8-Will9-Qiao10-Muhammad
+ 
+ Continue elimination? <press enter>
+ 
+ Krystal is eliminated
+ Remaining survivors: , 0-Muhammad1-Beza2-Ibrar3-Nur4-River5-Soham6-Leon7-Will8-Qiao9-Muhammad
+ 
+ Continue elimination? <press enter>
+ 
+ Qiao is eliminated
+ Remaining survivors: , 0-Muhammad1-Beza2-Ibrar3-Nur4-River5-Soham6-Leon7-Will8-Muhammad
+ 
+ Continue elimination? <press enter>
+ 
+ River is eliminated
+ Remaining survivors: , 0-Muhammad1-Beza2-Ibrar3-Nur4-Soham5-Leon6-Will7-Muhammad
+ 
+ Continue elimination? <press enter>
+ 
+ Beza is eliminated
+ Remaining survivors: , 0-Muhammad1-Ibrar2-Nur3-Soham4-Leon5-Will6-Muhammad
+ 
+ Continue elimination? <press enter>
+ 
+ Will is eliminated
+ Remaining survivors: , 0-Muhammad1-Ibrar2-Nur3-Soham4-Leon5-Muhammad
+ 
+ Continue elimination? <press enter>
+ 
+ Leon is eliminated
+ Remaining survivors: , 0-Muhammad1-Ibrar2-Nur3-Soham4-Muhammad
+ 
+ Continue elimination? <press enter>
+ 
+ Muhammad is eliminated
+ Remaining survivors: , 0-Ibrar1-Nur2-Soham3-Ibrar
+ 
+ Continue elimination? <press enter>
+ 
+ Nur is eliminated
+ Remaining survivors: , 0-Ibrar1-Soham2-Ibrar
+ 
+ Continue elimination? <press enter>
+ 
+ Soham is eliminated
+ Ibrar is the last survivor
+ 
+  ----jGRASP: Operation complete.
+ 
+
+*/
