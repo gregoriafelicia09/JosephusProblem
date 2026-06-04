@@ -15,12 +15,12 @@ public class JosephusSim {
             String name = file.nextLine().trim();
                add(name);
          }
-         // make the ring circular by attaching last node's next to front
          PersonNode cur = circle;
+         //Find the last node in the list
          while(cur.next != null){
             cur = cur.next;
          }
-         // remember the last node as the one in front of the next to get eliminated
+         //store reference to the last node
          track = cur;
          track.next = circle;
          
